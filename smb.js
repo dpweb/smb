@@ -33,5 +33,5 @@ var script = function(args){
 	 process.stdout.write(smb.message(args[0], args[1], args[2]));
 }
 
-__filename !== require.main.filename ?
+__filename !== (require.main && require.main.filename) ?
         module.exports = smb : script(process.argv.slice(2));

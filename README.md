@@ -1,10 +1,9 @@
 ##smb = Simple message block
 
-A binary message format for communication, in binary little-endian format.    
+A binary message format for communication.    
 Used for instance, as a job scheduling protocol for dpweb/swarm.    
 
-Consists of two raw memory blocks, a *meta* block and a *data* block, and a header containing a command, and the lengths of 
-the meta and data blocks.
+Consists of two raw memory blocks, a *meta* block and a *data* block, and a header containing a command, and the lengths of the meta and data blocks.
 
 ###Spec
 Little-endian binary message
@@ -23,9 +22,15 @@ Little-endian binary message
 var smb = require('smb.js');
 var buf = smb.message(0x01, 'this meta', 'this data');
 
-console.log(buf);
-console.log(smb.parse(buf));
+console.log(buf, smb.parse(buf));
 
 var base64message = smb.b64message(0x01, 'this meta', 'this data');
-console.log(smb.parse(base64message));
+console.log(base64message, smb.parse(base64message));
+````
+
+###Shell
+````
+$ node smb 1 hi yo
+$ node smb 1 hi yo > msg.bin && cat msg.bin
+$ node test 1 hi "$(<test1.txt)"  # bring in file
 ````
